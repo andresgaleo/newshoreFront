@@ -44,12 +44,11 @@ export class AppComponent {
         this.vuelo.Origin="";
         this.vuelo.Destination="";
       }else{
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': '' });
-        let options = { headers: headers };
-        this.http.post<any>('https://localhost:7059/Flights/find/one',JSON.stringify(this.vuelo),
-      options
+        const httpOptions = {
+            headers: { 'Content-Type': 'application/json' },
+            params: this.vuelo
+          };
+        this.http.get<any>('https://localhost:7059/Flights/find/one',httpOptions
       ).subscribe(data=>{
         this.journey = <any>(data.journey);
         for(let flight of data.journey.flight){
